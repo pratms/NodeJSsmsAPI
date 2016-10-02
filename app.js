@@ -17,17 +17,18 @@ var twilio = require('twilio');
 var client = new twilio.RestClient(accountSid, authToken);
 
 client.messages.create({
-    body: 'Hello manish,  pratik is here to recive you',
-    to: '+12019203362',  
+    body: 'Hello from Pratik Modak',
+    to: '+15516897695',  
     from: '+16466528019' 
 }, function(err) {
     console.log(err);
-});
+}
+);
 
 // view engine setup
 var db = mongojs('mongodb://localhost/students', ['details']);
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'public'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
@@ -38,25 +39,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
-
-app.get('/posts', function(req, res){
-  db.details.find(function(err, data) 
-  {
-  // if( err || !details) 
-  //   console.log("No female details found");
-  // else 
-  //   details.forEach( function(data) {
-     console.log(data);
-     res.json(data);
-  });
-
-
-
+// app.use('/', routes);
+app.get('/', function(req, res, next) {
+  res.render('index', {  
+   body: 'Twilio will send "Hello from Pratik Modak" to ',
+    to: '+12019203362',  
+    from: '+16466528019'  });
 });
 
-// catch 404 and forward to error handler
+
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -64,11 +55,6 @@ app.use(function(req, res, next) {
 });
 
 
-
-// error handlers
-
-// development error handler
-// will print stacktrace
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -79,8 +65,7 @@ if (app.get('env') === 'development') {
   });
 }
 
-// production error handler
-// no stacktraces leaked to user
+
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
