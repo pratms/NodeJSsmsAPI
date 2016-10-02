@@ -10,20 +10,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
-var accountSid = 'AC5b3a64ad844dfbb918812897bcf2a1ce'; 
-var authToken = '8c055fe15f07533ff69388be72b93b16';  
 
-var twilio = require('twilio');
-var client = new twilio.RestClient(accountSid, authToken);
-
-client.messages.create({
-    body: 'Hello from Pratik Modak',
-    to: '+15516897695',  
-    from: '+16466528019' 
-}, function(err) {
-    console.log(err);
-}
-);
 
 // view engine setup
 var db = mongojs('mongodb://localhost/students', ['details']);
@@ -41,6 +28,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/', routes);
 app.get('/', function(req, res, next) {
+var accountSid = 'AC5b3a64ad844dfbb918812897bcf2a1ce'; 
+var authToken = '8c055fe15f07533ff69388be72b93b16';  
+
+var twilio = require('twilio');
+var client = new twilio.RestClient(accountSid, authToken);
+
+client.messages.create({
+    body: 'Hello from Pratik Modak',
+    to: '+15516897695',  
+    from: '+16466528019' 
+}, function(err) {
+    console.log(err);
+}
+);
   res.render('index', {  
    body: 'Twilio will send "Hello from Pratik Modak" to ',
     to: '+12019203362',  
