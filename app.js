@@ -35,8 +35,8 @@ var twilio = require('twilio');
 var client = new twilio.RestClient(accountSid, authToken);
 
 client.messages.create({
-    body: 'Hello from Pratik Modak',
-    to: '+19292168151',  
+    body: 'please help in survey type Yes Or No and send us a reply',
+    to: '+12019203362',  
     from: '+16466528019' 
 }, function(err) {
     console.log(err);
@@ -47,7 +47,35 @@ client.messages.create({
     to: '+1 (929)216-8151',  
     from: '+16466528019'  });
 });
+app.use(bodyParser.urlencoded({ extended: true })); 
 
+app.get('/', function(req, res) {
+    var twilio = require('twilio');
+    var twiml = new twilio.TwimlResponse();
+    if (req.query.Body == 'Yes') {
+        twiml.message('thanks!');
+    } else if(req.query.Body == 'No') {
+        twiml.message('no prob');
+    } else {
+        twiml.message('No Body param match, Twilio sends this in the request to your server.');
+    }
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+});
+
+app.post('/', function(req, res) {
+    var twilio = require('twilio');
+    var twiml = new twilio.TwimlResponse();
+    if (req.body.Body == 'Yes') {
+        twiml.message('thanks!');
+    } else if(req.body.Body == 'No') {
+        twiml.message('no prob');
+    } else {
+        twiml.message('No Body param match, Twilio sends this in the request to your server.');
+    }
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+});
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
