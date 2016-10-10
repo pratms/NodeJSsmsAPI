@@ -36,7 +36,7 @@ var client = new twilio.RestClient(accountSid, authToken);
 
 client.messages.create({
     body: 'please help in survey type Yes Or No and send us a reply',
-    to: '+19292168151',  
+    to: '+12019203362',  
     from: '+16466528019' 
 }, function(err) {
     console.log(err);
