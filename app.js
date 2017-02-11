@@ -11,15 +11,11 @@ var users = require('./routes/users');
 
 var app = express();
 
-
-// view engine setup
 var db = mongojs('mongodb://localhost/students', ['details']);
 
 app.set('views', path.join(__dirname, 'public'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,7 +39,7 @@ client.messages.create({
 }
 );
   res.render('index', {  
-   body: 'Twilio will send "Hello from Pratik Modak" to ',
+   body: ' "Hello from Pratik Modak" to ',
     to: '+1 (929)216-8151',  
     from: '+16466528019'  });
 });
